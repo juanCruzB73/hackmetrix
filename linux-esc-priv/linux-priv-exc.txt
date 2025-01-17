@@ -1,0 +1,14 @@
+ssh -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa user@IP_ADDRES
+
+Explicación
+
+    -o HostKeyAlgorithms=+ssh-rsa: Permite que el cliente acepte claves de host tipo ssh-rsa.
+    -o PubkeyAcceptedAlgorithms=+ssh-rsa: Permite que las claves públicas ssh-rsa sean aceptadas durante la autenticación.
+
+Este enfoque es válido para máquinas de práctica como las de TryHackMe. Sin embargo, no se recomienda en entornos de producción debido a riesgos de seguridad.
+
+-----------------------------------------------
+
+
+"ps -aux" allows to see all the procces and check if the user is root in any
+

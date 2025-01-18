@@ -1,0 +1,1 @@
+Reading from a file in Python means accessing and retrieving the contents of a file, whether it be text, binary data or a specific data format like CSV or JSON. Python provides built-in functions and methods for reading a file in python efficiently.

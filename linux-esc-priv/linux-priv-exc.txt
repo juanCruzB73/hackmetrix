@@ -1,3 +1,5 @@
+#START TRYHACKME VM
+
 ssh -o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedAlgorithms=+ssh-rsa user@IP_ADDRES
 
 Explicación
@@ -9,6 +11,59 @@ Este enfoque es válido para máquinas de práctica como las de TryHackMe. Sin e
 
 -----------------------------------------------
 
+#PRIVILAGE ESCALATION
 
-"ps -aux" allows to see all the procces and check if the user is root in any
+involves going from lower permission acount to a higher one, is the explotation of vulneravilities, design flaws, configuration, etc.
 
+succesfully privilage escaltaing allows to: reset passwords, bypass acces control, compromise data, edit software, enabling persistance, change
+create user privileges, execute commands, etc.
+
+#ENUMERATION
+first todo after succesfully acces any system, is the procces of gathering information about the system, software, network, to identify vulneravilities.
+    there is:
+    -network enumeration: identify active hosts, devices(nmap,netcat)
+    -user enumeration: identify users on system or app, exploted based on responses from system/app like "invalid user" or "invalid passwords"
+    -service enumeration: identify runnin services, information service version, banner and configuration(scanning FTP server to see if anonnymous login is allowed)
+    -DNS enumeration: collect dns record, subdomains(nslookup,dig,dnsenum)finding a subdomain hosting a vulnearable aplication.
+    -SNP enumeration: target simple network mangment protocols, gathe rinfo abourt devices
+enumeration commands:
+    -hostname: return hostname of target machine
+    -uname -a: return info about kernet version
+    -/porc/version: contain info about os, like version,installed copillers, etc.
+    -/etc/issue: contain info about os that can be changed.
+    -ps: allows to see running procces on linux system, collects data about processes from files in the /proc filesystem, info like PID(procces id)
+        TTY: terminal type, time: amount of cpu used in procces, CMD: command or executable
+        *ps -a:view all procces
+        *ps axjf: view procces tree
+        *ps aux:procces for all users
+    -env: view environment variables
+    -sudo -l: list commands runneable with sudo
+    -ls -la: better ls
+    -id: provides general overview of user privilage level or group membership
+    -etc/passwd: show users on system
+    -ifconfig: gives info about network interface on system
+    -iproute: show network route
+    -netstat: can be used to gather information on existing connection
+        *netstat -a:show all listening ports and stablished connections
+        *netstat -at/au: show listening ports in TCP or UDP resctivly
+        *netstat -l: listen port listening, wainting for connection
+        *netstat -lt: list ports wainting for TCP.
+        *netstat s: network ussage statistic
+        *netstat -tp: list conections with name and PID info.
+        *netstat -ano: a(display names)n(do not resolve names)o(display names)
+    -find: search sys for files and folders
+        *find . -name flag.txt: search in current directory for flag.txt
+        *find /home -name flag.txt: seatch in home directory for file flag.txt
+        *find / -type d -name config: find directory named config
+        *find / -type f -perm 0777: find file with all permissions
+        *find / -perm a=x: find executable files
+        *find / -mtime 10: files modifien in the last 10 days
+        *find / -atime 10: files accessed in the last 10 days
+        *find / -cmin -60: files changed in the last 60 minutes
+        *find / amin -60: files accessed in the last 60 minutes
+        *find / size 50M: files with size of 50M, can user + or - before number to search for biggeror lowwer files
+        *find / -perm 222 -type d 2>/dev/null: find writable folder and filter errors
+        *find / -name python*: list development tools and languajes supported
+
+Automated enumeration tools:
+linpeas/linenum/les(linux exploit suggester)/linux smart enumeration/linux priv checker 

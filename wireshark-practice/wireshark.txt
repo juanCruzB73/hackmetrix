@@ -1,0 +1,28 @@
+#USES ON WIRESHARK
+works on all os
+live packet capture
+*import and analize hex dumps(dump of fata in hexadecimal)
+export data un different formats
+*detailed packet analisis
+create static and graps
+*decode encrypted data
+
+¿empty packets?
+-no traffic
+-you dont have auth
+-promiscuis mode(drops all traffic not destined to it)
+
+#FILTERS
+-capture filters(capture specific filters while discarding others)
+-display filters(dont discard, they higly packets they highly the ones searched)
+ 
+#COMMON FILTERS
+#type port: tcp/http
+#ip.addr == IP_ADRESS
+
+#use &&,==,||,<,>,=<,>=
+
+------------------------------------
+#STREAM OPTION:
+the encoded responses get by "Follow tcp" are always encrypted, by changing the stream option that data can be decrypted.
+

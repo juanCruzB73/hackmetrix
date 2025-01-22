@@ -1,0 +1,50 @@
+GET /index.html HTTP/1.1
+User-Agent: Wget/1.19.4 (linux-gnu)
+Accept: */*
+Accept-Encoding: identity
+Host: 192.168.170.145:8080
+Connection: Keep-Alive
+
+
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.8.3
+Date: Tue, 21 Jul 2020 20:37:46 GMT
+Content-type: text/html
+Content-Length: 815
+Last-Modified: Tue, 21 Jul 2020 19:33:39 GMT
+
+<head>
+    <title>LOL Hacked</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: black;
+            color: limegreen;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        img {
+            position: fixed;
+            left: 50%;
+            bottom: 0px;
+            transform: translate(-50%, -0%);
+            margin: 0 auto;
+            max-width: 100vw;
+            max-height: 100vh;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>H4ck3d by CooctusClan</h1>
+    </div>
+    <div>
+        <p>Secure your servers!</p>
+    </div>
+    <div><img src="cooctus.png"></div>
+</body>

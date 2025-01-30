@@ -67,3 +67,43 @@ enumeration commands:
 
 Automated enumeration tools:
 linpeas/linenum/les(linux exploit suggester)/linux smart enumeration/linux priv checker 
+
+$privilage excalation method 1 kernel exploit:
+1)enumeration: get the kernel and linux version
+2)search a kernel exploit on github/google
+3)download it on the atacked machine and run it
+
+$privilage escalation method 2 sudo -l:
+1)enumerate what binaries you have sudo acces: sudo -l
+2)search ways to privilage escalate with https://gtfobins.github.io/
+3)follo the steps to privilage escale
+
+$privale escalation method 3 SUID
+set user identification allows files to be executed with the permision level of the owner respectively
+1)find / -type f -perm -04000 -ls 2>/dev/null will list files that have SUID or SGID bits set.
+2)exploit the file with https://gtfobins.github.io/#+suid
+
+$privilage escalation capabilities
+capavilities help manage privileges at a more granular level, changin the capabilities of the binary would allow he binary to do thing a regular user couldn't.
+1)use getcap tool to enlist capabilities
+2)find a way to explot the binary found
+
+$privilage escalation cron jobs
+cron jobs are scheduled task that runs files with the root permision of the person who created.
+1)identidy cronjobs: cat /etc/crontab
+2)select the one that with root privilage and inject code,
+3)give that file execution privilages
+
+$pivilage escalition $PATH
+the path variable shows the path the binaries use, so by changing it or modifing the files that have write privileges code can be injected to modify the behavior of those binaries and priv escale.
+1)echo $PATH will display the path
+2)search for files with write access that go thorough the path variable
+3)(optional)change the path variable
+4)run the file modified
+
+$privilage escalation NFS
+nfs(network file sharing) is a feature that allow files to be shared over netwok, and if they are not well secured files with diferent porpuses can be uploaded into the machines useing the nfs.
+1)use cat /etc/export To see if any of the routes have "no_root_squash" on a writable share.
+2)create an executable SUID bit to sed to this nfs.
+3)on attacking machines mount one of the "no_root_squash" and build the executable. 
+4)run executable on atacked machine

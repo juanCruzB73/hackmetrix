@@ -1,0 +1,36 @@
+same origin policy(sop):a policy that stops a web to read or write anotherm check 3 things
+.protocol
+.host
+.port
+this ensure that websites are diferent,
+
+
+cross side escripting is when an atacker inserts malicius code to a website via inputs
+this scripts are loaded by the browser on the user side
+this occur when the inputs are not properlly protected. introducciong html or js content.
+
+xss is the second most prevelant issue in the OWAS´top 10, most vulnerable app are the ones that use:
+PHP,J2EE,JSP and ASP.NET
+
+successful explotation from xss can acces cookies, grant loggin access, redirect users to look a like websites,
+insert fake login forms that will send the data to him.
+
+
+
+types:
+reflected: script input is recognized as part of the original page(payload alert).
+stored: the input is persited and stored in a db. that would make that whoever that loads that input will get infected.
+dom: user input lands inside html and useing dom and runs js
+mutation: where user input is mutated beffore being inserted in the dom
+
+hard problem:
+every event handler is dangerous
+
+some solutions:
+
+learning xss:
+chanllenges
+
+
+browser explotation frameworks:
+-beef

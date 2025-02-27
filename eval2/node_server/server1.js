@@ -21,7 +21,6 @@ app.get('/',(req,res)=>{
 	res.send("welcome");
 });
 
-
 const PORT=3000;
 app.listen(PORT,()=>{
 	console.log('listening in port: '+PORT);

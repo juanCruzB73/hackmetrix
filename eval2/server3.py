@@ -1,19 +1,32 @@
-from flask import Flask, send_from_directory,request
-from flask_cors import CORS
+from http.server import BaseHTTPRequestHandler, HTTPServer
+from urllib.parse import urlparse, parse_qs
+from datetime import datetime
 
-app = Flask(__name__)
-CORS(app,origins="*",supports_credentials=True)
 
-'''@app.route('/payload.js')
-def serve_payload():
-    cookies = request.cookies
-    print(f"Received cookies: {cookies}")
-    return send_from_directory('.', 'payload.js)'''
+class MyHandler(BaseHTTPRequestHandler):
 
-@app.route('/<path:filename>')
-def serve_file(filename):
-    return send_from_directory('.', filename)
+    def do_GET(self):
+        query_components = parse_qs(urlparse(self.path).query)
+        print("")
+        print("{0} - {1}\t{2}".format(
+            datetime.now().strftime("%Y-%m-%d %I:%M %p"),
+            self.client_address[0],
+            self.headers['user-agent'])
+        )
+        print("-------------------" * 6)
+        for k, v in query_components.items():
+            print("{0}\t\t\t{1}".format(k.strip(), v))
 
-if __name__ == '__main__':
-    app.run(port=80)
+        return
 
+    def log_message(self, format, *args):
+        return
+
+if __name__ == "main":
+    try:
+        server = HTTPServer(('0.0.0.0', 8888), MyHandler)
+        print('Started http server')
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print('^C received, shutting down server')
+        server.socket.close()
